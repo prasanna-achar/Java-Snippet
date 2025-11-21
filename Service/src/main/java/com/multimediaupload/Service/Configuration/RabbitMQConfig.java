@@ -1,0 +1,39 @@
+package com.multimediaupload.Service.Configuration;
+
+
+import org.springframework.amqp.core.Binding;
+import org.springframework.amqp.core.BindingBuilder;
+import org.springframework.amqp.core.DirectExchange;
+import org.springframework.amqp.core.Queue;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+public class RabbitMQConfig {
+
+    public static final String VIDEO_PROCESSING_QUEUE = "video_processing_queue";
+
+    public static final String VIDEO_EXCHANGE ="video_exchange";
+
+    public static final String VIDEO_ROUTING_KEY = "video.routing.key";
+
+    @Bean
+    public Queue videoQueue(){
+        return new Queue(VIDEO_PROCESSING_QUEUE, true);
+    }
+
+    @Bean
+    public DirectExchange videoExchange(){
+        return new DirectExchange(VIDEO_EXCHANGE);
+
+    }
+
+    @Bean
+    public Binding videoBinding(Queue videoQueue, DirectExchange videoExchange){
+        return  BindingBuilder
+                .bind(videoQueue)
+                .to(videoExchange)
+                .with(VIDEO_ROUTING_KEY);
+    }
+
+}

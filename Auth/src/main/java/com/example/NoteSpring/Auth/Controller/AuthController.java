@@ -48,7 +48,7 @@ public class AuthController {
     }
     @PostMapping("/forgot-password")
     public ResponseEntity<ResponseBody> forgotPassword(ForgotPasswordSchema body){
-        ResponseBody response = authService.resendOTP(body.getEmail());
+        ResponseBody response = authService.forgotPasswordOrChangePassword(body.getEmail());
         return  new ResponseEntity<ResponseBody>(response, response.getHttpStatus());
     }
 

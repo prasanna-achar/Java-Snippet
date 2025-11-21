@@ -159,6 +159,7 @@ public class AuthService {
         }
 
         User user = verifyAuth.getUser();
+        System.out.print(user.getEmail());
         user.setVerified(true);
 
         authRepository.save(user);
